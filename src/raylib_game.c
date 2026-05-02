@@ -34,8 +34,8 @@ int targetCount = 0;
 //----------------------------------------------------------------------------------
 // Global Variables Definition (local to this module)
 //----------------------------------------------------------------------------------
-static const int screenWidth = 800;
-static const int screenHeight = 450;
+static const int screenWidth = 1600;
+static const int screenHeight = 900;
 
 // Required variables to manage screen transitions (fade-in, fade-out)
 static float transAlpha = 0.0f;
