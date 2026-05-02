@@ -27,6 +27,7 @@
 #include "raymath.h"
 #include "screens.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -57,7 +58,14 @@ void InitGameplayScreen(void)
         targets[i].radius   = target_radius;
         targets[i].hit      = false;
         targets[i].type     = TargetCircle;
-        targets[i].color    = RED;
+        if (i == 9 || i == 19)
+        {
+            targets[i].color = GREEN;
+        }
+        else
+        {
+            targets[i].color = RED;
+        }
     }
 }
 
@@ -65,6 +73,7 @@ void InitGameplayScreen(void)
 void spawn_target(); // targets and remember them in code to calculate hit distance
 void target_hit(); // calc closest target being hit, remove target // save each hit in database lol, id ist uhrzeit + datum
 void resultScreen(); //calc accurarcy in result screen
+// TODO wrong targets which should not be clicked
 
 // Gameplay Screen Update logic
 void UpdateGameplayScreen(void)
@@ -81,6 +90,14 @@ void UpdateGameplayScreen(void)
                 bool collision = CheckCollisionPointCircle(GetMousePosition(), targets[i].position, targets[i].radius);
                 if (collision)
                 {
+                    if (targets[i].color.a == 255
+                        && targets[i].color.b == 48
+                        && targets[i].color.g == 228
+                        && targets[i].color.r == 0 )
+                    {
+                        finishScreen = 1;
+                        return;
+                    }
                     targets[i].hit = true;
                     targets[i].hitDistance = Vector2Distance(GetMousePosition(), targets[i].position);
                 }
