@@ -42,7 +42,8 @@ extern Font font;
 extern Music music;
 extern Sound fxCoin;
 
-extern Target targets[4];
+extern Target targets[20];
+extern int targetCount;
 
 #ifdef __cplusplus
 extern "C" {            // Prevents name mangling of functions

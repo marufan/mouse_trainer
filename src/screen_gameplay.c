@@ -45,8 +45,9 @@ void InitGameplayScreen(void)
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
-    // 4 random targets:
-    for (int i = 0; i < 4; i++)
+
+    // random targets:
+    for (int i = 0; i < targetCount; i++)
     {
         int target_x = rand() % GetScreenWidth();
         int target_y = rand() % GetScreenHeight();
@@ -61,7 +62,7 @@ void InitGameplayScreen(void)
 }
 
 
-void spawn_target(); // 4 targets and remember them in code to calculate hit distance
+void spawn_target(); // targets and remember them in code to calculate hit distance
 void target_hit(); // calc closest target being hit, remove target // save each hit in database lol, id ist uhrzeit + datum
 void resultScreen(); //calc accurarcy in result screen
 
@@ -73,7 +74,7 @@ void UpdateGameplayScreen(void)
     {
         //PlaySound(fxCoin);
         //printf("%d", GetMouseX());
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < targetCount; i++)
         {
             if (!targets[i].hit)
             {
@@ -104,7 +105,7 @@ void DrawGameplayScreen(void)
     DrawTextEx(font, "GAMEPLAY SCREEN", pos, font.baseSize*3.0f, 4, MAROON);
     DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
     // draw targets:
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < targetCount; i++)
     {
         if (!targets[i].hit)
         {

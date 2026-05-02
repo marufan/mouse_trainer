@@ -24,6 +24,10 @@
 **********************************************************************************************/
 
 #include "raylib.h"
+#include <math.h>
+
+#define RAYGUI_IMPLEMENTATION
+#include "raygui.h"
 #include "screens.h"
 
 //----------------------------------------------------------------------------------
@@ -31,6 +35,8 @@
 //----------------------------------------------------------------------------------
 static int framesCounter = 0;
 static int finishScreen = 0;
+bool showMessageBox = false;
+float sliderValue = 0.0;
 
 //----------------------------------------------------------------------------------
 // Options Screen Functions Definition
@@ -42,24 +48,45 @@ void InitOptionsScreen(void)
     // TODO: Initialize OPTIONS screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+    showMessageBox = false;
+    sliderValue = 4.0;
 }
 
 // Options Screen Update logic
 void UpdateOptionsScreen(void)
 {
     // TODO: Update OPTIONS screen variables here!
+    if (IsKeyPressed(KEY_ENTER)) //|| IsGestureDetected(GESTURE_TAP))
+    {
+        finishScreen = 1; // gameplay
+        PlaySound(fxCoin);
+    }
 }
 
 // Options Screen Draw logic
 void DrawOptionsScreen(void)
 {
     // TODO: Draw OPTIONS screen here!
+    if (GuiButton((Rectangle){ 24, 24, 120, 30 }, "#191#Show Message")) showMessageBox = true;
+
+    if (showMessageBox)
+    {
+        int result = GuiMessageBox((Rectangle){ 85, 70, 250, 100 },
+            "#191#Message Box", "Hi! This is a message!", "Nice;Cool");
+
+        if (result >= 0) showMessageBox = false;
+    }
+
+    GuiSliderBar((Rectangle){ 320, 430, 200, 20 }, NULL, TextFormat("%i", (int)sliderValue), &sliderValue, 0, 20);
+    targetCount = (int)roundf(sliderValue);
+
 }
 
 // Options Screen Unload logic
 void UnloadOptionsScreen(void)
 {
     // TODO: Unload OPTIONS screen variables here!
+    showMessageBox = false;
 }
 
 // Options Screen should finish?

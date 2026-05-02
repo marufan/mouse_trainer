@@ -28,7 +28,8 @@ Font font = { 0 };
 Music music = { 0 };
 Sound fxCoin = { 0 };
 
-Target targets[4] = { 0, 0, 0, 0 };
+Target targets[20];
+int targetCount = 0;
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition (local to this module)
@@ -250,7 +251,8 @@ static void UpdateDrawFrame(void)
             {
                 UpdateOptionsScreen();
 
-                if (FinishOptionsScreen()) TransitionToScreen(TITLE);
+                //if (FinishOptionsScreen()) TransitionToScreen(TITLE);
+                if (FinishOptionsScreen()) TransitionToScreen(GAMEPLAY);
 
             } break;
             case GAMEPLAY:
